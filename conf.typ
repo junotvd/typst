@@ -2,8 +2,8 @@
   title: none,
   subtitle: none,
   author: none,
+  authors: (),
   date: none,
-  titlepage: false,
   doc,
 ) = {
   set text(
@@ -20,8 +20,10 @@
     state("in-outline").update(false)
   }
 
+  let heading_font = "Latin Modern Roman"
+
   show heading: it => [
-    #set text(font: "Latin Modern Sans")
+    #set text(font: heading_font)
     #it
   ]
 
@@ -29,7 +31,7 @@
     if not state("in-outline", false).get() {
       pagebreak(weak: true)
     }
-    text(size: 25pt)[#it]
+    text(size: 25pt)[#it #v(25pt)]
   }
   show heading.where(level: 2): it => {
     set text(size: 18pt)
@@ -59,6 +61,10 @@
     return ""
   }
 
+  let show_date = if date == none [#(
+      datetime.today().display("[day] [month repr:long] [year]")
+    )] else [#date]
+
   set page(
     paper: "a4",
     numbering: "1",
@@ -84,8 +90,12 @@
     },
     footer: context {
       let current = here().page()
-      if current == 1 and titlepage == false [
-        #author
+      if current == 1 [
+        #text(
+          upper(show_date),
+          font: "Latin Modern Sans",
+          size: 10pt,
+        )
         #h(1fr)
         #current
       ] else []
@@ -93,63 +103,23 @@
   )
 
   let show_title = {
-    let show_date = if date == [] [#(
-        datetime.today().display("[day] [month repr:long] [year]")
-      )] else [#date]
-
-    let show_title_1 = [
-      #align(
-        center,
-        [
-          #text(size: 26pt, font: "Latin Modern Sans")[*#title*] \
-          #v(2pt)
-          #text(size: 16pt)[#author] \
-          #v(2pt)
-          #text(size: 14pt)[#show_date]
-        ],
-      )
-      #v(15pt)
-    ]
-    let show_title_2 = [
-      #text(size: 26pt, font: "Latin Modern Sans")[*#title*] \
-      #v(2pt)
-      #text(size: 14pt, font: "Latin Modern Sans")[*#subtitle*] \
-      #v(6pt)
-      #text(size: 18pt)[#author] \
-      #v(6pt)
-      #text(size: 14pt)[#show_date]
-      #v(15pt)
-    ]
-
-    if subtitle == [] [#show_title_1] else [#show_title_2]
+    let count = authors.len()
+    let ncols = calc.min(count, 3)
+    text(size: 26pt, font: heading_font)[#title]
+    grid(
+      columns: (1fr,) * ncols,
+      row-gutter: 24pt,
+      ..authors.map(author => [
+        #author.name \
+        #author.affiliation \
+        #link("mailto:" + author.email)
+      ]),
+    )
+    v(15pt)
   }
 
-  if titlepage == false {
-    set align(center)
-    show_title
-  } else {
-    set align(center + horizon)
-    show_title
-  }
+  align(center)[#show_title]
 
   set align(left)
   doc
 }
-
-#show: doc => conf(
-  title: [Algemene Natuurkunde II],
-  subtitle: [Elektromagnetisme],
-  author: [Junot Van Dijck],
-  date: [],
-  titlepage: true,
-  doc,
-)
-
-#outline()
-
-#lorem(20)
-= Level 1
-== Level 2
-=== Level 3
-==== Level 4
-#lorem(100)
