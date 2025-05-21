@@ -1,4 +1,11 @@
-#let conf(title, subtitle, author, date, doc) = {
+#let conf(
+  title: none,
+  subtitle: none,
+  author: none,
+  date: none,
+  titlepage: false,
+  doc,
+) = {
   set text(
     size: 12pt,
     font: "Latin Modern Roman",
@@ -77,7 +84,7 @@
     },
     footer: context {
       let current = here().page()
-      if current == 1 [
+      if current == 1 and titlepage == false [
         #author
         #h(1fr)
         #current
@@ -85,49 +92,56 @@
     },
   )
 
-  let show_date = if date == [] [#(
-      datetime.today().display("[day] [month repr:long] [year]")
-    )] else [#date]
+  let show_title = {
+    let show_date = if date == [] [#(
+        datetime.today().display("[day] [month repr:long] [year]")
+      )] else [#date]
 
-  let show_title_1 = [
-    #align(
-      center,
-      [
-        #text(size: 26pt, font: "Latin Modern Sans")[*#title*] \
-        #v(2pt)
-        #text(size: 16pt)[#author] \
-        #v(2pt)
-        #text(size: 14pt)[#show_date]
-      ],
-    )
-    #v(15pt)
-  ]
-  let show_title_2 = [
-    #align(
-      center,
-      [
-        #text(size: 26pt, font: "Latin Modern Sans")[*#title*] \
-        #v(2pt)
-        #text(size: 14pt, font: "Latin Modern Sans")[*#subtitle*] \
-        #v(6pt)
-        #text(size: 18pt)[#author] \
-        #v(6pt)
-        #text(size: 14pt)[#show_date]
-      ],
-    )
-    #v(15pt)
-  ]
+    let show_title_1 = [
+      #align(
+        center,
+        [
+          #text(size: 26pt, font: "Latin Modern Sans")[*#title*] \
+          #v(2pt)
+          #text(size: 16pt)[#author] \
+          #v(2pt)
+          #text(size: 14pt)[#show_date]
+        ],
+      )
+      #v(15pt)
+    ]
+    let show_title_2 = [
+      #text(size: 26pt, font: "Latin Modern Sans")[*#title*] \
+      #v(2pt)
+      #text(size: 14pt, font: "Latin Modern Sans")[*#subtitle*] \
+      #v(6pt)
+      #text(size: 18pt)[#author] \
+      #v(6pt)
+      #text(size: 14pt)[#show_date]
+      #v(15pt)
+    ]
 
-  if subtitle == [] [#show_title_1] else [#show_title_2]
+    if subtitle == [] [#show_title_1] else [#show_title_2]
+  }
+
+  if titlepage == false {
+    set align(center)
+    show_title
+  } else {
+    set align(center + horizon)
+    show_title
+  }
+
+  set align(left)
   doc
 }
 
 #show: doc => conf(
-  [Algemene Natuurkunde II],
-  [Elektromagnetisme],
-  // [],
-  [Junot Van Dijck],
-  [],
+  title: [Algemene Natuurkunde II],
+  subtitle: [Elektromagnetisme],
+  author: [Junot Van Dijck],
+  date: [],
+  titlepage: true,
   doc,
 )
 
