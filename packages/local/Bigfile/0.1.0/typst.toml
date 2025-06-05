@@ -1,0 +1,7 @@
+[package]
+name = "Bigfile"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["junotvd"]
+license = "MIT"
+description = "Template for really big files (in terms of the actual content of the file, not the amount of lines of code)"
