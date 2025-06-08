@@ -42,9 +42,12 @@
   thmenv(identifier, base, base_level, boxfmt).with(supplement: head)
 }
 
-#let theorem-settings = (
-  base_level: 2,
+#let theorem-settings-it = (
+  base_level: 1,
   bodyfmt: it => text(style: "italic", it),
+)
+#let theorem-settings = (
+  base_level: 1,
 )
 
 
@@ -56,20 +59,20 @@
   titlefmt: title => text(font: sansfont, weight: "bold")[#title],
 )
 
-#let theorem = mythmbox("theorem", "Stelling", ..theorem-settings)
-#let property = mythmbox("property", "Eigenschap", ..theorem-settings)
-#let lemma = mythmbox("lemma", "Lemma", ..theorem-settings)
-#let definition = mythmbox("definition", "Definitie", base_level: 2)
+#let theorem = mythmbox("theorem", "Stelling", ..theorem-settings-it)
+#let property = mythmbox("property", "Eigenschap", ..theorem-settings-it)
+#let lemma = mythmbox("lemma", "Lemma", ..theorem-settings-it)
+#let definition = mythmbox("definition", "Definitie", ..theorem-settings)
 #let algoritm = mythmbox(
   "algoritm",
   "Algoritme",
-  base_level: 2,
+  ..theorem-settings,
   experimental: true,
 )
 
 #let note = thmplain("note", "Opmerking").with(numbering: none)
 #let notation = thmplain("notation", "Notatie").with(numbering: none)
-#let example = thmplain("example", "Voorbeeld", base_level: 2)
+#let example = thmplain("example", "Voorbeeld", ..theorem-settings)
 #let proof = thmproof(
   "proof",
   "Bewijs",

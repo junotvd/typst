@@ -4,8 +4,9 @@
 #import "@preview/physica:0.9.5": *
 #import "@preview/cetz:0.3.4": canvas, draw, matrix, vector
 #import "@preview/lovelace:0.3.0": *
-#import "@preview/zebraw:0.5.5": *
-#show: zebraw
+
+#import "@preview/marge:0.1.0": sidenote
+#let sidenote = sidenote.with(numbering: "1", padding: 1em)
 
 
 #let ggd = math.op("ggd")
@@ -25,11 +26,26 @@
 
 #let appendix(body) = {
   set heading(numbering: "A.1", supplement: [Appendix])
+  show math.equation: it => {
+    if it.has("label") {
+      math.equation(
+        block: true,
+        numbering: n => {
+          numbering("(A.1)", counter(heading).get().first(), n)
+        },
+        it,
+      )
+    } else {
+      it
+    }
+  }
   context {
     if (
       query((heading.where(level: 1)).before(here())).last().supplement
         != [Appendix]
-    ) { counter(heading).update(0) } else [ hallo ]
+    ) {
+      counter(heading).update(0)
+    }
   }
   body
 }

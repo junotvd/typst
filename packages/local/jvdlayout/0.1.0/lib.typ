@@ -1,3 +1,9 @@
+#let mnote(body) = {
+  let content = block(body)
+  place(left, dx: -10pt, content)
+}
+
+
 /*
 
    FONTS
@@ -25,8 +31,8 @@ TEXT related
 
   let list_config = (
     indent: 5pt,
-    spacing: 10pt,
-    tight: false,
+    spacing: auto,
+    tight: true,
   )
   set enum(numbering: "(a.1)", ..list_config)
   set list(..list_config)
@@ -35,7 +41,8 @@ TEXT related
     block(width: 93%, inset: 0pt, align(center, eq))
   }
 
-  show enum: it => block(it)
+  // show list: it => block(it)
+  // show enum: it => block(it)
   doc
 }
 #let layout(doc) = {
@@ -47,6 +54,7 @@ TEXT related
      HEADINGS
 
   */
+  show heading.where(level: 4): set heading(numbering: none)
 
   show heading: it => block({
     set par(justify: false)
@@ -66,16 +74,16 @@ TEXT related
       upper(body),
     )
     if it.level != 1 {
-      v(1em)
+      v(1em, weak: false)
       grid(
         columns: (auto, 1fr),
         {
           if it.numbering != none {
             headingtext(counter(heading).display(it.numbering) + " ")
+            h(0.3em)
           }
         },
         {
-          h(0.3em)
           headingtext(it.body)
           h(5pt)
           box(
@@ -89,11 +97,11 @@ TEXT related
           )
         },
       )
-      v(1em)
+      v(1em, weak: false)
     } else {
       align(top + left, {
         v(7em)
-        text(font: headingfont, weight: "regular", size: 30pt, upper(it))
+        text(font: headingfont, weight: "regular", size: 26pt, upper(it))
         v(2em)
       })
     }
