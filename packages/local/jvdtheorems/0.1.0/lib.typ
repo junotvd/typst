@@ -59,9 +59,10 @@
   titlefmt: title => text(font: sansfont, weight: "bold")[#title],
 )
 
-#let theorem = mythmbox("theorem", "Stelling", ..theorem-settings-it)
-#let property = mythmbox("property", "Eigenschap", ..theorem-settings-it)
-#let lemma = mythmbox("lemma", "Lemma", ..theorem-settings-it)
+#let theorem = mythmbox("theorem", "Stelling", ..theorem-settings)
+#let property = mythmbox("property", "Eigenschap", ..theorem-settings)
+#let proposition = mythmbox("proposition", "Propositie", ..theorem-settings)
+#let lemma = mythmbox("lemma", "Lemma", ..theorem-settings)
 #let definition = mythmbox("definition", "Definitie", ..theorem-settings)
 #let algoritm = mythmbox(
   "algoritm",

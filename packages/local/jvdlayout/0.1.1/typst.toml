@@ -1,0 +1,7 @@
+[package]
+name = "jvdlayout"
+version = "0.1.1"
+entrypoint = "lib.typ"
+authors = ["junotvd"]
+license = "MIT"
+description = "my layout for headers etc."

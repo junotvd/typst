@@ -239,3 +239,137 @@ TEXT related
 
   doc
 }
+
+
+#let hftrrules(doc) = {
+  let numberingH(c) = {
+    if type(c.numbering) == int or type(c.numbering) == str {
+      return numbering(c.numbering, ..counter(heading).at(c.location()))
+    }
+  }
+
+  let currentH(level: 1) = {
+    let elems = query(selector(heading.where(level: level)).after(here()))
+
+    if elems.len() != 0 and elems.first().location().page() == here().page() {
+      return [#numberingH(elems.first()) #elems.first().body]
+    } else {
+      elems = query(selector(heading.where(level: level)).before(here()))
+      if elems.len() != 0 {
+        return [#numberingH(elems.last()) #elems.last().body]
+      }
+    }
+    return ""
+  }
+
+  set page(
+    header: context {
+      let current = here().page()
+      if (
+        not query(heading.where(level: 1).after(here()))
+          .map(h => h.location().page())
+          .at(0, default: 0)
+          == here().page()
+      ) {
+        if calc.even(current) [
+          #counter(page).display()
+          #h(1fr)
+          #text(font: sansfont, size: 10pt, style: "oblique")[#upper(currentH(
+              level: 2,
+            ))]
+        ] else [
+
+          #text(font: sansfont, size: 10pt, style: "oblique")[#upper(currentH())]
+          #h(1fr)
+          #counter(page).display()
+
+        ]
+      }
+    },
+    footer: context {
+      if (
+        query((heading.where(level: 1)).before(here()))
+          .map(h => (
+            h.location().page() == here().page()
+          ))
+          .at(-1, default: 0)
+          == true
+      ) { counter(page).display() }
+    },
+  )
+  doc
+}
+
+
+#let headingrules(doc) = {
+  show heading.where(level: 4): set heading(numbering: none)
+
+  show heading: it => block({
+    set par(justify: false)
+    // set text(hyphenate: true)
+    let headingtext(body) = text(
+      font: headingfont,
+      size: {
+        if it.level == 2 {
+          15pt
+        } else if it.level == 3 {
+          12pt
+        } else {
+          10pt
+        }
+      },
+      weight: "regular",
+      upper(body),
+    )
+    if it.level != 1 {
+      v(1em, weak: false)
+      grid(
+        columns: (auto, 1fr),
+        {
+          if it.numbering != none {
+            headingtext(counter(heading).display(it.numbering) + " ")
+            h(0.3em)
+          }
+        },
+        {
+          headingtext(it.body)
+          h(5pt)
+          box(
+            width: 1fr,
+            height: {
+              if it.level == 2 {
+                6pt
+              } else { 4.5pt }
+            },
+            line(length: 100%),
+          )
+        },
+      )
+      v(1em, weak: false)
+    } else {
+      align(top + left, {
+        v(7em)
+        text(font: headingfont, weight: "regular", size: 26pt, upper(it))
+        v(2em)
+      })
+    }
+  })
+
+
+  show heading.where(level: 1): it => {
+    pagebreak(weak: true)
+    it
+  }
+
+
+  set heading(numbering: "1.1")
+
+
+  // show heading.where(level: 1): it => {
+  //   counter(math.equation).update(0)
+  //   it
+  // }
+  //
+
+  doc
+}
