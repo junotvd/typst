@@ -47,7 +47,7 @@
   bodyfmt: it => text(style: "italic", it),
 )
 #let theorem-settings = (
-  base_level: 1,
+  base_level: 3,
 )
 
 
@@ -64,6 +64,7 @@
 #let proposition = mythmbox("proposition", "Propositie", ..theorem-settings)
 #let lemma = mythmbox("lemma", "Lemma", ..theorem-settings)
 #let definition = mythmbox("definition", "Definitie", ..theorem-settings)
+#let gevolg = mythmbox("gevolg", "Gevolg", ..theorem-settings)
 #let algoritm = mythmbox(
   "algoritm",
   "Algoritme",
@@ -73,7 +74,10 @@
 
 #let note = thmplain("note", "Opmerking").with(numbering: none)
 #let notation = thmplain("notation", "Notatie").with(numbering: none)
-#let example = thmplain("example", "Voorbeeld", ..theorem-settings)
+#let example = thmplain("example", "Voorbeeld", ..theorem-settings).with(
+  breakable: true,
+)
+#let question = thmplain("question", "Vraag").with(numbering: none)
 #let proof = thmproof(
   "proof",
   "Bewijs",
@@ -82,7 +86,20 @@
     top: 0em,
     bottom: 0em,
   ),
-  padding: (top: 0em, bottom: 0.5em),
+  padding: (top: 0em, bottom: 2.0em),
   titlefmt: it => text(weight: "bold", font: sansfont)[#it],
   namefmt: name => text(font: sansfont)[(#name)],
 )
+#let solution = thmproof(
+  "solution",
+  "Oplossing",
+  inset: (
+    x: 0em,
+    top: 0em,
+    bottom: 0em,
+  ),
+  padding: (top: 0em, bottom: 2.0em),
+  titlefmt: it => text(weight: "bold", font: sansfont)[#it],
+  namefmt: name => text(font: sansfont)[(#name)],
+)
+// #show: solution.with(thm-qed-symbol: $diamond$)
