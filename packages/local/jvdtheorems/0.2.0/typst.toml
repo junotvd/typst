@@ -1,0 +1,7 @@
+[package]
+name = "jvdtheorems"
+version = "0.2.0"
+entrypoint = "lib.typ"
+authors = ["junotvd"]
+license = "MIT"
+description = "my theorems"
