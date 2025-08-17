@@ -1,0 +1,7 @@
+[package]
+name = "jvdmath"
+version = "0.1.1"
+entrypoint = "lib.typ"
+authors = ["junotvd"]
+license = "MIT"
+description = "math paper settings"

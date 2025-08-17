@@ -47,7 +47,7 @@
   bodyfmt: it => text(style: "italic", it),
 )
 #let theorem-settings = (
-  base_level: 3,
+  base_level: 1,
 )
 
 
@@ -64,6 +64,7 @@
 #let proposition = mythmbox("proposition", "Propositie", ..theorem-settings)
 #let lemma = mythmbox("lemma", "Lemma", ..theorem-settings)
 #let definition = mythmbox("definition", "Definitie", ..theorem-settings)
+#let axiom = mythmbox("axiom", "Axioma", ..theorem-settings)
 #let gevolg = mythmbox("gevolg", "Gevolg", ..theorem-settings)
 #let algoritm = mythmbox(
   "algoritm",
@@ -78,6 +79,9 @@
   breakable: true,
 )
 #let question = thmplain("question", "Vraag").with(numbering: none)
+#let exercise = thmplain("exercise", "Oefening").with(base_level: 2)
+#let reminder = thmplain("reminder", "Herinner").with(numbering: none)
+#let intermezzo = thmplain("intermezzo", "Intermezzo").with(numbering: none)
 #let proof = thmproof(
   "proof",
   "Bewijs",
