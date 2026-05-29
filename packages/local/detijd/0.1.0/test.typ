@@ -29,3 +29,7 @@
 ]
 
 #meer(title: [Lees ook])[Pensioenwet gestemd: wat zijn de gevolgen voor u?]
+#figure(caption: [Dit is in sans font], table(
+  columns: 4,
+  [Dit], [is], [een], [tabel.]
+))

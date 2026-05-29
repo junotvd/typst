@@ -36,11 +36,14 @@
 ]
 
 #let detijd(body) = {
+  show figure.caption: set text(font: sans)
   show link: link => underline(stroke: 0.3pt + blauw2)[#text(
     fill: blauw2,
     link,
   )]
   set text(
+    lang: "nl",
+    region: "BE",
     fill: grijs,
     font: serif,
   )
@@ -49,6 +52,8 @@
   show heading: set text(fill: blauw2)
   show heading.where(level: 1): block.with(above: 1.5em, below: 1.5em)
   show heading.where(level: 2): block.with(above: 1.5em, below: 1.5em)
+
+  set table(stroke: 0.5pt + grijs)
 
   body
 }
