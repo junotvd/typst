@@ -1,0 +1,7 @@
+[package]
+name = "detijd"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["junotvd"]
+license = "MIT"
+description = "kleuren van site van de tijd --- leest fijn"
