@@ -35,6 +35,8 @@
   #body
 ]
 
+#let intro(body) = text(size: 12pt, fill: blauw1, weight: "bold", body)
+
 #let detijd(body) = {
   show figure.caption: set text(font: sans)
   show link: link => underline(stroke: 0.3pt + blauw2)[#text(
@@ -54,6 +56,18 @@
   show heading.where(level: 2): block.with(above: 1.5em, below: 1.5em)
 
   set table(stroke: 0.5pt + grijs)
+
+  show raw.where(block: true): kader.with(title: none)
+  show raw.where(block: false): box.with(
+    fill: wit2,
+    inset: (x: 3pt, y: 0pt),
+    outset: (y: 3pt),
+  )
+  show raw.where(lang: none, block: false): set text(fill: blauw1)
+  show raw: it => {
+    show text.where(fill: rgb("#4b69c6")): set text(fill: blauw1)
+    it
+  }
 
   body
 }

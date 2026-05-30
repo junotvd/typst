@@ -2,6 +2,8 @@
 #show: detijd
 
 
+#intro[Donderdagnacht werd de centenindex na een maandenlange discussie dan toch goedgekeurd in het parlement. Wat betekent hij concreet voor u?]
+
 #kader(title: "De essentie")[
   - Door de centenindex zullen lonen boven 4.000 euro bij de eerstvolgende indexatie een beperktere indexering krijgen.
   - Voor pensioenen ligt de drempel op 2.000 euro.
@@ -31,5 +33,28 @@
 #meer(title: [Lees ook])[Pensioenwet gestemd: wat zijn de gevolgen voor u?]
 #figure(caption: [Dit is in sans font], table(
   columns: 4,
-  [Dit], [is], [een], [tabel.]
+  [Dit], [is], [een], [tabel.],
 ))
+
+
+#show raw.where(lang: "python"): set raw(tab-size: 4)
+= Is er support voor code?
+Hieronder een implementatie van het `quicksort` algoritme in `python`:
+```python
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    piv = arr[len(arr) // 2]
+    le = [x for x in arr if x < piv]
+    mi = [x for x in arr if x == piv]
+    ri = [x for x in arr if x > piv]
+
+    return quicksort(le) + mi + quicksort(ri)
+```
+```python [x.name for x in lst if x.name == name]```
+```[x.name for x in lst if x.name == name]```
+```
+def quicksort(arr):
+    pass
+```
