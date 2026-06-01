@@ -1,8 +1,11 @@
 #import "@preview/physica:0.9.5": *
 #import "@preview/theoretic:0.2.0" as theoretic: proof, qed, theorem
 #import "@preview/wrap-it:0.1.1": *
-#import "@preview/scaffolder:0.2.1": scaffolding
-
+#import "@preview/glossarium:0.5.9": *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "@preview/cetz:0.4.1": *
+#import "@preview/cetz-plot:0.1.2"
+// #import "@preview/lilaq:0.4.0" as lq
 
 
 /*
@@ -12,33 +15,44 @@
 //#show ref: theoretic.show-ref
 
 // set up your needed presets
-#let theorem = theorem.with(supplement: "Stelling", fmt-prefix: (s, n, t) => {
-  text(weight: "bold")[#s #n]
-  if t != none {
-    h(3pt)
-    [(#t)]
-    h(1em)
-  } else { h(1em) }
-})
+#let theorem = theorem.with(
+  supplement: "Stelling",
+  fmt-prefix: (s, n, t) => {
+    text(font: "CMU Bright", weight: "bold")[#s #n]
+    if t != none {
+      h(3pt)
+      text(font: "CMU Bright")[(#t)]
+      h(1em)
+    } else { h(1em) }
+  },
+  block-args: (
+    // stroke: (left: 1.0pt),
+    inset: (y: 5pt),
+  ),
+)
 
-#let proof = proof.with(supplement: "Bewijs", fmt-prefix: (s, n, t) => {
-  text(weight: "bold")[#s #n]
-  if t != none {
-    [(#t)]
-    h(1em)
-  } else [#h(1em) ]
-})
-#let thm = theorem.with(suppelement: "Stelling", fmt-body: (b, _) => text(
-  style: "italic",
-  b,
-))
+#let proof = proof.with(
+  supplement: "Bewijs",
+  fmt-prefix: (s, n, t) => {
+    text(font: "CMU Bright", weight: "bold")[#s #n]
+    if t != none {
+      h(3pt)
+      text(font: "CMU Bright")[(#t)]
+      h(1em)
+    } else { h(1em) }
+  },
+  // block-args: (
+  //   stroke: (left: 2.5pt),
+  //   inset: (left: 7pt, y: 5pt),
+  // ),
+)
 #let solution = proof.with(supplement: "Oplossing")
 
 #let lemma = theorem.with(supplement: "Lemma")
 #let example = theorem.with(supplement: "Voorbeeld")
-#let exercise = theorem.with(supplement: "Oefening")
 #let definition = theorem.with(supplement: "Definitie")
 #let question = theorem.with(supplement: "Vraag")
+#let exercise = theorem.with(supplement: "Oefening")
 
 #let note = theorem.with(supplement: "Opmerking", number: none)
 
@@ -86,8 +100,6 @@
 
 // Analyse
 #let diam = math.op("Diam")
-#let dom = math.op("dom")
-#let bld = math.op("bld")
 
 // Calculus
 #let grad = $nabla$
@@ -168,7 +180,6 @@
   set text(lang: "nl")
   set block(spacing: 1.2em)
   set par(first-line-indent: 1.5em, spacing: 0.65em, justify: true)
-  set enum(numbering: "(a).(1).(i)")
-  set page(margin: (inside: 4.5cm, outside: 4.5cm, top: 3.9cm, bottom: 4.5cm))
+  set enum(numbering: "1.a.")
   body
 }

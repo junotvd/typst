@@ -5,8 +5,7 @@
 #set text(font: "New Computer Modern")
 #set heading(numbering: "1.1")
 #set text(lang: "nl")
-#set page(paper: "a4")
-#set page(background: scaffolding())
+#show heading: set text(font: "CMU Bright")
 
 #outline()
 

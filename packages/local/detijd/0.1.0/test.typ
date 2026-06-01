@@ -1,4 +1,6 @@
 #import "lib.typ": *
+#import "@local/math:0.3.0": *
+#show: mathrules
 #show: detijd
 
 
@@ -58,3 +60,79 @@ def quicksort(arr):
 def quicksort(arr):
     pass
 ```
+
+
+= Wiskunde
+== Analyse achtig
+#kader(title: "Definitie")[
+  Het *Cartesisch product* van twee verzamelingen, $X$ en $Y$, is de verzameling van alle geordende paren $(x,y)$ voor $x in X$ en $y in Y$:
+  $
+    X times Y = { (x,y) | x in X and y in Y }
+  $
+]
+
+== Natuurkunde
+$E = dd(E) = k Q/R^2$ met $lambda = q/l$, $dd(q) = lambda dd(l)$ en $dd(E) = (dd(q))/r^2$.
+Dus
+$
+  E &= integral dd(E)_(x) = integral dd(E) cos theta = integral dd(E) dot x/R \
+  &= k integral dd(q)/r^2 dot x/r = (k x)/r^3 integral lambda dd(l) = (k x)/r^3 lambda integral_(0) l dot dd(l) \
+  &= x/(4 pi epsilon_0) dot 1/((x^2 + a^2)^(3 slash 2)) dot Q/l dot l \
+  &= (Q x)/(4pi epsilon_0 (x^2 + a^2)^(3 slash 2))
+$
+
+== Gaussische integraal
+$
+  integral_(-infinity)^(infinity) e^(-x^2) dd(x) = sqrt(pi), space.quad lim_(n -> infinity) (1 + 1/n)^(n) = e
+$
+
+== Sommen, producten en binomiaalcoëfficiënten
+$
+  sum_(k=0)^(n) mat(n; k) x^(k) y^(n-k) = (x + y)^(n), space.quad
+  product_(p "priem") 1/(1-p^(-s)) = zeta (s)
+$
+
+== Vectoren
+$
+  hat(a) times arrow(b) = norm(arrow(a)) norm(arrow(b)) sin theta hat(n), space.quad
+  dot(arrow(x)) = dv(arrow(x), t), space.quad
+  tilde(phi.alt), overline(psi), div arrow(E) = rho/epsilon_0
+$
+
+== Matrices
+$
+  mat(alpha, beta; gamma, theta) mat(x; y) = mat(alpha x, beta y; gamma x, theta y)
+$
+
+== Verzamelingenleer, logica, relaties
+$
+  forall epsilon > 0: abs(x - x_0) < delta ==> abs(f(x) - f(x_0)) < epsilon
+$
+$
+  A union B, A inter, A subset.eq B, x in RR without QQ, emptyset != S subset NN
+$
+
+== Cases
+$
+  sgn (x) = cases(
+    -1 & "als" x < 0,
+    0 & "als" x < 0,
+    +1 & "als" x < 0,
+  )
+$
+
+== Blackboard, kalligrafie, fraktur
+$
+  RR, CC, ZZ, QQ, NN, HH, space.quad cal(A), cal(B), cal(C), cal(D), space.quad frak(g), frak(s l)_(2), frak(p)
+$
+
+$
+  root(3,(x^2 + 1)/(sqrt(y) - z)), space.quad e^(i pi) + 1 = 0, space.quad
+  (partial^2 u)/(partial t^2) = c^2 nabla^2 u
+$
+
+== Cauchy
+$
+  abs(chevron.l u\, v chevron.r) <= norm(u) norm(v), space.quad
+  integral.cont_(partial Sigma) bold(F) dot dd(bold(l)) = integral.double_(Sigma) (nabla times bold(F)) dot dd(bold(S))
+$
