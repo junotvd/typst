@@ -40,7 +40,7 @@
 #let detijd(body) = {
   show figure.caption: set text(font: sans)
   show link: link => underline(stroke: 0.3pt + blauw2)[#text(
-    fill: blauw2,
+    fill: blauw1,
     link,
   )]
   set text(
