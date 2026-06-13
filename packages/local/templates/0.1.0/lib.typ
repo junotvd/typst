@@ -96,3 +96,4 @@
   body
 }
 
+#import "base.typ": base
